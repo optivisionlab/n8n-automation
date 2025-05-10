@@ -1,0 +1,599 @@
+{
+  "name": "crawler_befood",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        -240
+      ],
+      "id": "4af26e01-90bc-4fff-b098-50eca3d2f1dc",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gw.be.com.vn/api/v1/be-merchant-gateway/web/customer/get_home_collections",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "accept-language",
+              "value": "vi,en-US;q=0.9,en;q=0.8,zh-CN;q=0.7,zh;q=0.6"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJhdWQiOiJndWVzdCIsImV4cCI6MTc0Njg4OTkxNCwiaWF0IjoxNzQ2ODAzNTE0LCJpc3MiOiJiZS1kZWxpdmVyeS1nYXRld2F5In0.ntYn_usLkxpXzLOolExkdLC8tz_jhLAUrn1uAYkvO_4"
+            },
+            {
+              "name": "origin",
+              "value": "https://food.be.com.vn"
+            },
+            {
+              "name": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "name": "referer",
+              "value": "https://food.be.com.vn/"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"locale\": \"vi\",\n  \"client_info\": {\n    \"locale\": \"vi\",\n    \"device_type\": 3\n  },\n  \"latitude\": 10.77253621500006,\n  \"longitude\": 106.69798153800008\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -600,
+        0
+      ],
+      "id": "c074f9f7-7d7c-4a55-a39a-7482d1f3301f",
+      "name": "API get collections"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gw.be.com.vn/api/v1/be-marketplace/web/collection/items/restaurants",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "accept-language",
+              "value": "vi,en-US;q=0.9,en;q=0.8,zh-CN;q=0.7,zh;q=0.6"
+            },
+            {
+              "name": "app_version",
+              "value": "11269"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJhdWQiOiJndWVzdCIsImV4cCI6MTc0Njg5MDQ1MiwiaWF0IjoxNzQ2ODA0MDUyLCJpc3MiOiJiZS1kZWxpdmVyeS1nYXRld2F5In0.0GtCK_yI2aOCbf5JU5Tthrg4ibqAZaRl0U8QwkPmtSo"
+            },
+            {
+              "name": "origin",
+              "value": "https://food.be.com.vn"
+            },
+            {
+              "name": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "name": "referer",
+              "value": "https://food.be.com.vn/"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"collection_id\": {{ $json.collections }},\n  \"page\": 1,\n  \"filters\": [],\n  \"limit\": 10,\n  \"locale\": \"vi\",\n  \"app_version\": \"11269\",\n  \"version\": \"1.1.269\",\n  \"device_type\": 3,\n  \"operator_token\": \"0b28e008bc323838f5ec84f718ef11e6\",\n  \"customer_package_name\": \"xyz.be.food\",\n  \"device_token\": \"9ea86cc8fdda2895b9e38b9ab50c9c66\",\n  \"ad_id\": \"\",\n  \"screen_width\": 360,\n  \"screen_height\": 640,\n  \"client_info\": {\n    \"locale\": \"vi\",\n    \"app_version\": \"11269\",\n    \"version\": \"1.1.269\",\n    \"device_type\": 3,\n    \"operator_token\": \"0b28e008bc323838f5ec84f718ef11e6\",\n    \"customer_package_name\": \"xyz.be.food\",\n    \"device_token\": \"9ea86cc8fdda2895b9e38b9ab50c9c66\",\n    \"ad_id\": \"\",\n    \"screen_width\": 360,\n    \"screen_height\": 640\n  },\n  \"latitude\": 10.77253621500006,\n  \"longitude\": 106.69798153800008\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        180,
+        -160
+      ],
+      "id": "5ce31727-c56f-4951-9da6-b7fdf22b27d9",
+      "name": "API get restaurants"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gw.be.com.vn/api/v1/be-marketplace/web/restaurant/detail",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "accept-language",
+              "value": "vi,en-US;q=0.9,en;q=0.8,zh-CN;q=0.7,zh;q=0.6"
+            },
+            {
+              "name": "app_version",
+              "value": "11269"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJhdWQiOiJndWVzdCIsImV4cCI6MTc0Njg5MDg0OSwiaWF0IjoxNzQ2ODA0NDQ5LCJpc3MiOiJiZS1kZWxpdmVyeS1nYXRld2F5In0.-CpxMEOVQ0jV7n0EmoqnBQ8-P_UAP38AJjNHB4lfCiw"
+            },
+            {
+              "name": "origin",
+              "value": "https://food.be.com.vn"
+            },
+            {
+              "name": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "name": "referer",
+              "value": "https://food.be.com.vn/"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "name": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "name": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "name": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"restaurant_id\": {{ $json.restaurants }},\n  \"locale\": \"vi\",\n  \"app_version\": \"11269\",\n  \"version\": \"1.1.269\",\n  \"device_type\": 3,\n  \"operator_token\": \"0b28e008bc323838f5ec84f718ef11e6\",\n  \"customer_package_name\": \"xyz.be.food\",\n  \"device_token\": \"9ea86cc8fdda2895b9e38b9ab50c9c66\",\n  \"ad_id\": \"\",\n  \"screen_width\": 360,\n  \"screen_height\": 640,\n  \"client_info\": {\n    \"locale\": \"vi\",\n    \"app_version\": \"11269\",\n    \"version\": \"1.1.269\",\n    \"device_type\": 3,\n    \"operator_token\": \"0b28e008bc323838f5ec84f718ef11e6\",\n    \"customer_package_name\": \"xyz.be.food\",\n    \"device_token\": \"9ea86cc8fdda2895b9e38b9ab50c9c66\",\n    \"ad_id\": \"\",\n    \"screen_width\": 360,\n    \"screen_height\": 640\n  },\n  \"latitude\": 10.77253621500006,\n  \"longitude\": 106.69798153800008\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        260
+      ],
+      "id": "a1e01b33-cd14-40fb-ac88-ae54311c543f",
+      "name": "API detail"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d3e9e434-c08e-4341-ab67-a051cba07809",
+              "name": "collections",
+              "value": "={{ $json.collections.map(item => item.id) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -400,
+        -120
+      ],
+      "id": "64e2baee-068f-4dc7-b541-6a5ef0d802ea",
+      "name": "get  Fields ID"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -60,
+        -240
+      ],
+      "id": "6700c614-3a81-4f49-abf6-d5bc6d4378c1",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "collections",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -300
+      ],
+      "id": "00524391-c7c2-4e50-a86c-332490f23df9",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "080ed045-1f1d-49da-bca6-2ba9fdb62923",
+              "name": "restaurants",
+              "value": "={{ $json.data.map(item => item.restaurant_id) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        -120
+      ],
+      "id": "b801c14d-2fba-4a1f-8fc3-ecf1eba6d6d8",
+      "name": "get list restaurant_id"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "restaurants",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        120
+      ],
+      "id": "c2369c88-4b81-4712-ac26-29135e11160e",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        20,
+        120
+      ],
+      "id": "553e7e35-60b4-4fe9-9e6c-101e9b053fef",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "home_collections",
+        "fields": "code,message,collections",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.1,
+      "position": [
+        -440,
+        260
+      ],
+      "id": "361d5376-4dc4-4032-bb8e-7a23b4286a08",
+      "name": "MongoDB Insert Collections",
+      "credentials": {
+        "mongoDb": {
+          "id": "oAG6fcufyWRbWl0F",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "restaurants",
+        "fields": "flag,message,next_page,data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -320
+      ],
+      "id": "3f882e65-3b2a-42ea-a92f-b3351b9901a9",
+      "name": "MongoDB Insert restaurants",
+      "credentials": {
+        "mongoDb": {
+          "id": "oAG6fcufyWRbWl0F",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "restautant_detail",
+        "fields": "flag,message,data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        80
+      ],
+      "id": "0fd38ecc-fbb1-4c8f-9b11-fb92b46462a3",
+      "name": "MongoDB Insert Detail",
+      "credentials": {
+        "mongoDb": {
+          "id": "oAG6fcufyWRbWl0F",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 19,
+              "triggerAtMinute": null
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -740,
+        180
+      ],
+      "id": "f7d543b0-d1ee-46ac-8073-dccdd1397f51",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "API get collections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API get collections": {
+      "main": [
+        [
+          {
+            "node": "get  Fields ID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "MongoDB Insert Collections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get  Fields ID": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "MongoDB Insert restaurants",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "API get restaurants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API get restaurants": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "get list restaurant_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get list restaurant_id": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "MongoDB Insert Detail",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "API detail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API detail": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MongoDB Insert restaurants": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "API get collections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c7cfcaec-edfc-4894-a4bd-d68c0a267d16",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "127c4be59e9d278f6d0eebe7154923229a08879909f01c439cba3e9a8ab18df9"
+  },
+  "id": "b97RXDonoOTh6F2a",
+  "tags": []
+}
